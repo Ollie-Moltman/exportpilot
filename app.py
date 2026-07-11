@@ -608,6 +608,49 @@ th{{background:#f4f4f4;font-weight:bold}}
 </div>
 </body></html>"""
 
+
+def gen_packing_list(data):
+    import uuid
+    from datetime import date
+    today = date.today().strftime('%d %B %Y')
+    pl_no = f"PL-{date.today().strftime('%Y%m%d')}-{str(uuid.uuid4())[:4].upper()}"
+    items = data.get('items', [])
+    currency = data.get('currency', 'USD')
+    total_gross = 0
+    total_net = 0
+    rows_html = ''
+    for i, it in enumerate(items):
+        gw = float(it.get('gross_weight', 0))
+        nw = float(it.get('net_weight', 0))
+        total_gross += gw
+        total_net += nw
+        rows_html += (
+            f"<tr><td>{i+1}</td><td>{it.get('description','')}</td><td>{it.get('hs_code','')}</td>"
+            f"<td>{it.get('no_of_packages', it.get('quantity',''))}</td>"
+            f"<td>{it.get('package_type', 'Carton')}</td>"
+            f"<td>{gw:.2f}</td><td>{nw:.2f}</td>"
+            f"<td>{it.get('dimensions', 'N/A')}</td></tr>"
+        )
+    return f"""<!DOCTYPE html><html><head><meta charset="UTF-8"><title>{pl_no}</title>
+<style>body{{font-family:Arial,sans-serif;margin:40px;font-size:12px;color:#222}}
+.header{{text-align:center;border-bottom:2px solid #222;padding-bottom:10px;margin-bottom:20px}}
+table{{width:100%;border-collapse:collapse;margin-bottom:20px}}
+th,td{{border:1px solid #444;padding:8px;font-size:11px}}
+th{{background:#f4f4f4;font-weight:bold}}
+.footer{{font-size:10px;color:#555;margin-top:30px}}
+@media print{{body{{margin:20px}}}}
+</style></head><body>
+<div class="header"><h1 style="margin:0">PACKING LIST</h1>
+<p style="margin:5px 0">Exporter: {data.get('exporter_name','[Exporter]')} | IEC: {data.get('iec','[IEC]')}</p>
+<p style="margin:0;font-size:11px">Invoice Ref: {data.get('invoice_ref','N/A')} | Date: {today} | Country: {data.get('buyer_country','[Country]')}</p></div>
+<table><tr><th>#</th><th>Description</th><th>HS Code</th><th>No. of Pkgs</th><th>Pkg Type</th><th>Gross Wt (kg)</th><th>Net Wt (kg)</th><th>Dimensions (L×W×H cm)</th></tr>{rows_html}
+<tr><td colspan="5" style="text-align:right;font-weight:bold">TOTAL:</td><td style="font-weight:bold">{total_gross:.2f}</td><td style="font-weight:bold">{total_net:.2f}</td><td></td></tr></table>
+<div class="footer">
+<p><strong>Total Packages (Words):</strong> {int(total_gross/30)+1 if total_gross > 0 else 'N/A'} cartons (approx)</p>
+<p>Declared by: {data.get('exporter_name','[Exporter]')} | Date: {today}</p>
+</div>
+</body></html>"""
+
 def gen_coo(data):
     import uuid
     from datetime import date
@@ -689,6 +732,8 @@ def api_generate_document():
         return jsonify({'error': 'At least one product required'}), 400
     if doc_type == 'invoice':
         html = gen_invoice(data)
+    elif doc_type == 'packing_list':
+        html = gen_packing_list(data)
     elif doc_type == 'certificate_of_origin':
         html = gen_coo(data)
     else:

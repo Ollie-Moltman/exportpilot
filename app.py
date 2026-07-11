@@ -528,7 +528,7 @@ def api_history():
 
 @app.route('/api/health')
 def api_health():
-    return jsonify({'status': 'running', 'version': '1.2.0', 'build': '2026-07-11', 'features': ['HS Classification v40+', 'FTA Rates DB', 'Real Duty Data']})
+    return jsonify({'status': 'running', 'version': '1.3.0', 'build': '2026-07-11', 'features': ['HS Classification v40+', 'FTA Rates DB', 'Document Generator v1.0']})
 
 # ─── Start ──────────────────────────────────────────────────────────────────────
 def start():
@@ -536,7 +536,170 @@ def start():
         init_db()
     port = int(os.environ.get('EXPORTPILOT_PORT', 5050))
     print(f"[ExportPilot] Starting on port {port}")
-    app.run(host='0.0.0.0', port=port, debug=False)
+    # ─── Document Generator Routes ─────────────────────────────────────────────────────
+def gen_invoice(data):
+    import uuid
+    from datetime import date
+    today = date.today().strftime('%d %B %Y')
+    inv_no = f"INV-{date.today().strftime('%Y%m%d')}-{str(uuid.uuid4())[:4].upper()}"
+    items = data.get('items', [])
+    total = sum(float(i.get('value', 0)) for i in items)
+    currency = data.get('currency', 'USD')
+    rows_html = ''.join([
+        f"<tr><td>{i+1}</td><td>{it.get('description','')}</td><td>{it.get('hs_code','')}</td>"
+        f"<td>{it.get('quantity','')}</td><td>{it.get('unit','PCS')}</td>"
+        f"<td>{currency} {float(it.get('unit_value',0)):,.2f}</td>"
+        f"<td>{currency} {float(it.get('value',0)):,.2f}</td></tr>"
+        for i,it in enumerate(items)
+    ])
+    fta_note = ''
+    if data.get('fta_code'):
+        fta_note = f'<div style="background:#f0fff0;border:1px solid #0a0;padding:10px;margin:10px 0;font-size:11px"><strong>FTA Benefit:</strong> {data.get("fta_name","Preferential")} — 0% duty claimed per Certificate of Origin attached</div>'
+    return f"""<!DOCTYPE html><html><head><meta charset="UTF-8"><title>{inv_no}</title>
+<style>body{{font-family:Arial,sans-serif;margin:40px;font-size:12px;color:#222}}
+.header{{text-align:center;border-bottom:2px solid #222;padding-bottom:15px;margin-bottom:20px}}
+table{{width:100%;border-collapse:collapse;margin-bottom:20px}}
+th,td{{border:1px solid #444;padding:8px;font-size:11px}}
+th{{background:#f4f4f4;font-weight:bold}}
+.meta{{display:flex;gap:20px;margin-bottom:20px}}
+.meta-box{{border:1px solid #ddd;padding:12px;flex:1}}
+.meta-box h3{{margin:0 0 8px;font-size:11px;color:#666;border-bottom:1px solid #ddd;padding-bottom:5px}}
+.meta-box p{{margin:2px 0;font-size:11px}}
+.footer{{font-size:10px;color:#555;border-top:1px solid #ddd;padding-top:10px;margin-top:20px}}
+.totals{{text-align:right;margin:15px 0}}
+@media print{{body{{margin:20px}}}}
+</style></head><body>
+<div class="header"><h1 style="margin:0">COMMERCIAL INVOICE</h1>
+<p style="margin:5px 0">{data.get('exporter_name','[Exporter]')}</p>
+<p style="margin:0;font-size:11px">IEC: {data.get('iec','[IEC]')} | GSTIN: {data.get('gstin','[GSTIN]')}</p></div>
+<div class="meta">
+<div class="meta-box"><h3>EXPORTER</h3>
+<p><strong>{data.get('exporter_name','[Exporter]')}</strong></p>
+<p>{data.get('exporter_address','[Address]')}</p>
+<p>PAN: {data.get('pan','[PAN]')} | IEC: {data.get('iec','[IEC]')}</p></div>
+<div class="meta-box"><h3>BUYER / CONSIGNEE</h3>
+<p><strong>{data.get('buyer_name','[Buyer]')}</strong></p>
+<p>{data.get('buyer_address','[Buyer Address]')}</p>
+<p>Country: {data.get('buyer_country','[Country]')}</p></div>
+</div>
+<div style="display:flex;gap:10px;margin-bottom:20px">
+<div style="border:1px solid #ddd;padding:10px;flex:1"><h3 style="margin:0 0 5px;font-size:11px;color:#666">INVOICE DETAILS</h3>
+<p style="margin:2px 0">Invoice No: <strong>{inv_no}</strong></p>
+<p style="margin:2px 0">Date: <strong>{today}</strong></p>
+<p style="margin:2px 0">Country of Origin: <strong>INDIA</strong></p>
+<p style="margin:2px 0">Port of Loading: <strong>{data.get('port_loading','[Port]')}</strong></p>
+<p style="margin:2px 0">Destination Port: <strong>{data.get('port_discharge','[Destination]')}</strong></p></div>
+<div style="border:1px solid #ddd;padding:10px;flex:1"><h3 style="margin:0 0 5px;font-size:11px;color:#666">SHIPMENT DETAILS</h3>
+<p style="margin:2px 0">Pre-carriage: <strong>{data.get('pre_carriage','By Sea')}</strong></p>
+<p style="margin:2px 0">Payment Terms: <strong>{data.get('payment_terms','[Terms]')}</strong></p>
+<p style="margin:2px 0">Currency: <strong>{currency}</strong></p></div>
+</div>
+<table><tr><th>#</th><th>Description of Goods</th><th>HS Code</th><th>Qty</th><th>Unit</th><th>Unit Value</th><th>Total Value</th></tr>{rows_html}
+<tr><td colspan="5" style="text-align:right;font-weight:bold">TOTAL:</td><td></td><td style="font-weight:bold">{currency} {total:,.2f}</td></tr></table>
+<div class="totals">
+<p style="margin:3px 0"><strong>Total Invoice Value: {currency} {total:,.2f}</strong></p>
+</div>
+{fta_note}
+<div class="footer">
+<p><strong>Declaration:</strong> I/We hereby declare that the particulars given above are true and correct and the goods are of Indian origin.</p>
+<p>For <strong>{data.get('exporter_name','[Exporter]')}</strong></p>
+<br><br>
+<p>Authorised Signatory: _________________________ | Name: _________________________ | Designation: _________________________</p>
+</div>
+</body></html>"""
 
-if __name__ == '__main__':
-    start()
+def gen_coo(data):
+    import uuid
+    from datetime import date
+    today = date.today().strftime('%d %B %Y')
+    coo_no = f"COO-{date.today().strftime('%Y%m%d')}-{str(uuid.uuid4())[:4].upper()}"
+    items = data.get('items', [])
+    total = sum(float(i.get('value', 0)) for i in items)
+    currency = data.get('currency', 'USD')
+    hs_codes = ', '.join([i.get('hs_code', '') for i in items if i.get('hs_code')])
+    rows_html = ''.join([
+        f"<tr><td>{i+1}</td><td>{it.get('description','')}</td><td>{it.get('hs_code','')}</td>"
+        f"<td>INDIA</td><td>{it.get('quantity','')} {it.get('unit','PCS')}</td>"
+        f"<td>{today}</td><td>{currency} {float(it.get('value',0)):,.2f}</td></tr>"
+        for i,it in enumerate(items)
+    ])
+    fta_name = data.get('fta_name', data.get('fta_code', 'applicable'))
+    return f"""<!DOCTYPE html><html><head><meta charset="UTF-8"><title>{coo_no}</title>
+<style>body{{font-family:Arial,sans-serif;margin:30px;font-size:12px;color:#222}}
+.header{{text-align:center;border:2px solid #222;padding:10px;margin-bottom:5px}}
+.header h1{{margin:0;font-size:16px}} .header p{{margin:3px 0;font-size:11px}}
+.subnote{{background:#f0f0f0;border:1px solid #ddd;padding:5px;font-size:10px;text-align:center;margin-bottom:15px}}
+table{{width:100%;border-collapse:collapse;margin-bottom:15px}}
+th,td{{border:1px solid #444;padding:8px;font-size:11px}}
+th{{background:#f0f0f0}}
+.field-table td{{padding:5px 8px;font-size:11px;vertical-align:top;border:1px solid #444}}
+.label{{font-weight:bold;background:#f5f5f5;width:25%}}
+.declaration{{background:#f9fff9;border:1px solid #090;padding:10px;font-size:11px;margin-top:15px}}
+.signatures{{display:flex;justify-content:space-between;margin-top:40px;font-size:10px}}
+.footer{{font-size:9px;color:#999;margin-top:20px;text-align:center}}
+@media print{{body{{margin:15px}}}}
+</style></head><body>
+<div class="header"><h1>CERTIFICATE OF ORIGIN</h1><p>GOVERNMENT OF INDIA — MINISTRY OF COMMERCE & INDUSTRY</p></div>
+<div class="subnote"><strong>{fta_name}</strong> — Preferential tariff treatment claimed under the respective agreement</div>
+<table class="field-table">
+<tr><td class="label">Certificate No:</td><td><strong>{coo_no}</strong></td><td class="label">Date:</td><td><strong>{today}</strong></td></tr>
+<tr><td class="label">Exporter Name & Address:</td><td>{data.get('exporter_name','[Exporter]')}<br>{data.get('exporter_address','[Address]')}<br>IEC: {data.get('iec','[IEC]')}</td><td class="label">Producer Name:</td><td>{data.get('producer_name','Same as Exporter / Specify')}</td></tr>
+<tr><td class="label">Importer Name & Address:</td><td>{data.get('buyer_name','[Buyer]')}<br>{data.get('buyer_address','[Buyer Address]')}</td><td class="label">Country of Destination:</td><td>{data.get('buyer_country','[Country]')}</td></tr>
+<tr><td class="label">Means of Transport:</td><td>{data.get('pre_carriage','Sea')}</td><td class="label">Port of Loading:</td><td>{data.get('port_loading','[Port]')}</td></tr>
+<tr><td class="label">Port of Discharge:</td><td>{data.get('port_discharge','[Destination]')}</td><td class="label">Final Destination:</td><td>{data.get('buyer_country','[Country]')}</td></tr>
+</table>
+<table><tr><th>#</th><th>Description of Goods</th><th>HS Code</th><th>Country of Origin</th><th>Quantity</th><th>Invoice Date</th><th>Invoice Value</th></tr>{rows_html}</table>
+<table class="field-table">
+<tr><td class="label">HS Code (Common):</td><td>{hs_codes or data.get('hs_code','')}</td><td class="label">Country of Origin:</td><td><strong>INDIA</strong></td></tr>
+<tr><td class="label">FTA Code:</td><td>{fta_name}</td><td class="label">Rule of Origin:</td><td>Change of Chapter / Product Specific Rules (as applicable)</td></tr>
+<tr><td class="label">Producers Declaration:</td><td colspan="3">The above-mentioned goods were produced/manufactured in India and comply with the rules of origin as per the {fta_name} agreement.</td></tr>
+</table>
+<div class="declaration">
+<strong>DECLARATION:</strong><br>
+I, the undersigned, hereby declare that the above-mentioned goods are of Indian origin and comply with the rules of origin as stipulated in the {fta_name} between India and {data.get('buyer_country','the destination country')}. All information provided herein is true and correct.
+</div>
+<div class="signatures">
+<div>
+<p><strong>Signature:</strong> _______________________</p>
+<p><strong>Name:</strong> _______________________</p>
+<p><strong>Designation:</strong> _______________________</p>
+<p><strong>Date:</strong> {today}</p></div>
+<div style="text-align:right">
+<p><strong>For {data.get('exporter_name','[Exporter]')}</strong></p><br><br>
+<p>_______________________</p>
+<p><strong>Authorised Signatory</strong></p></div>
+</div>
+<div class="footer">
+<p>Note: This is a self-declaration of origin. For preferential tariff claims, some countries require certification by authorised agencies or Chambers of Commerce. Please verify requirements with your customs broker or freight forwarder.</p>
+<p>Generated by ExportPilot | Document No: {coo_no} | {today}</p>
+</div>
+</body></html>"""
+
+@app.route('/doc-generator')
+def doc_generator():
+    return render_template('doc_generator.html')
+
+@app.route('/api/generate-document', methods=['POST'])
+def api_generate_document():
+    from flask import make_response
+    data = request.get_json()
+    doc_type = data.get('doc_type', 'invoice')
+    items = data.get('items', [])
+    if not items:
+        return jsonify({'error': 'At least one product required'}), 400
+    if doc_type == 'invoice':
+        html = gen_invoice(data)
+    elif doc_type == 'certificate_of_origin':
+        html = gen_coo(data)
+    else:
+        return jsonify({'error': 'Document type not yet supported'}), 400
+    resp = make_response(html)
+    resp.headers['Content-Type'] = 'text/html'
+    return resp
+
+# ─── Startup ──────────────────────────────────────────────────────────────────────
+with app.app_context():
+    init_db()
+port = int(os.environ.get('EXPORTPILOT_PORT', 5050))
+print(f"[ExportPilot] Starting v1.3 on port {port}")
+app.run(host='0.0.0.0', port=port, debug=False)

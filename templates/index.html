@@ -36,7 +36,9 @@
             <a href="/hs-lookup" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition">HS Classifier</a>
             <a href="/fta-optimizer" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition">FTA Optimizer</a>
             <a href="/documents" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition">Documents</a>
-            <span class="text-xs text-slate-400">v1.0 MVP</span>
+            <a href="/blog/uae-cepta-savings-guide" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition">📄 Blog</a>
+            <a href="/pricing" class="text-sm font-bold text-blue-600 border border-blue-600 px-3 py-1 rounded-lg hover:bg-blue-50 transition">Pricing</a>
+            <span class="text-xs text-slate-400">v1.4.0</span>
         </div>
     </div>
 </nav>
@@ -241,7 +243,7 @@
         <div class="text-center md:text-left">
             <div class="font-bold text-white text-lg">ExportPilot</div>
             <div class="text-xs mt-1">AI Trade Co-Pilot for Indian SMEs</div>
-            <div class="text-xs mt-1">Built: 2026-07-11 | v1.0 MVP</div>
+            <div class="text-xs mt-1">Built: 2026-07-11 | v1.4.0</div>
         </div>
         <div class="text-xs text-center md:text-right">
             <div>For informational purposes only. Always verify with a licensed customs broker.</div>
@@ -252,3 +254,17 @@
 
 </body>
 </html>
+
+<!-- Analytics -->
+<script>
+fetch('/api/analytics', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+        event: 'pageview',
+        page: window.location.pathname,
+        referrer: document.referrer,
+        ua: navigator.userAgent.substring(0, 100)
+    })
+}).catch(() => {});
+</script>

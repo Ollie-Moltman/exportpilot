@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing — ExportPilot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>* { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+
+<nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+                <span class="text-white font-bold text-lg">EP</span>
+            </div>
+            <span class="font-bold text-xl text-slate-900">ExportPilot</span>
+        </a>
+        <div class="flex items-center gap-6">
+            <a href="/hs-lookup" class="text-sm font-medium text-slate-600 hover:text-blue-600">HS Classifier</a>
+            <a href="/fta-optimizer" class="text-sm font-medium text-slate-600 hover:text-blue-600">FTA Optimizer</a>
+            <a href="/documents" class="text-sm font-medium text-slate-600 hover:text-blue-600">Documents</a>
+            <a href="/pricing" class="text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-0.5">Pricing</a>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-4xl mx-auto px-4 py-12">
+
+    <div class="text-center mb-10">
+        <h1 class="text-3xl font-extrabold mb-3">Simple, Transparent Pricing</h1>
+        <p class="text-slate-500 text-lg">Start free. Scale when you're making money from your exports.</p>
+        <p class="text-slate-400 text-sm mt-2">All plans include HS Lookup, FTA Optimizer, and Document Generator.</p>
+    </div>
+
+    <!-- Pricing Cards -->
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+
+        <!-- Free -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 hover:shadow-lg transition">
+            <div class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2">Starter</div>
+            <div class="flex items-end gap-1 mb-1">
+                <span class="text-4xl font-extrabold text-slate-900">₹0</span>
+                <span class="text-slate-400 mb-1">/month</span>
+            </div>
+            <p class="text-slate-500 text-sm mb-6">For exporters just starting out.</p>
+            <ul class="space-y-3 mb-8 text-sm">
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 5 HS Code lookups/month</li>
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> FTA comparison for your products</li>
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 3 documents/month</li>
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Basic HS code database</li>
+                <li class="flex items-center gap-2 text-slate-400"><span>✗</span> No AI-powered classification</li>
+                <li class="flex items-center gap-2 text-slate-400"><span>✗</span> No priority support</li>
+            </ul>
+            <a href="/hs-lookup" class="block text-center bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-3 rounded-xl transition">
+                Get Started Free
+            </a>
+        </div>
+
+        <!-- Pro - Featured -->
+        <div class="bg-white rounded-2xl border-2 border-blue-600 p-6 relative shadow-xl shadow-blue-600/10">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">MOST POPULAR</div>
+            <div class="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-2">Pro</div>
+            <div class="flex items-end gap-1 mb-1">
+                <span class="text-4xl font-extrabold text-slate-900">₹999</span>
+                <span class="text-slate-400 mb-1">/month</span>
+            </div>
+            <p class="text-slate-500 text-sm mb-6">For active exporters. Pays for itself in 1 shipment.</p>
+            <ul class="space-y-3 mb-8 text-sm">
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> <strong>100 HS Code lookups/month</strong></li>
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> <strong>Unlimited FTA comparisons</strong></li>
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> <strong>Unlimited documents</strong></li>
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> AI-powered classification</li>
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Priority email support</li>
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Search history (30 days)</li>
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> WhatsApp support</li>
+            </ul>
+            <button onclick="showPayment('pro')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-blue-600/20">
+                Get Pro — ₹999/month
+            </button>
+            <p class="text-center text-xs text-slate-400 mt-3">Or pay ₹9,999/year (save ₹999)</p>
+        </div>
+
+        <!-- Business -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 hover:shadow-lg transition">
+            <div class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2">Business</div>
+            <div class="flex items-end gap-1 mb-1">
+                <span class="text-4xl font-extrabold text-slate-900">₹2,999</span>
+                <span class="text-slate-400 mb-1">/month</span>
+            </div>
+            <p class="text-slate-500 text-sm mb-6">For export firms with multiple products.</p>
+            <ul class="space-y-3 mb-8 text-sm">
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> <strong>Unlimited HS Code lookups</strong></li>
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Everything in Pro</li>
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Multi-user access (up to 5)</li>
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Custom HS code additions</li>
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Dedicated support manager</li>
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Priority new FTA updates</li>
+                <li class="flex items-center gap-2"><span class="text-green-500">✓</span> White-label for your clients <span class="text-xs text-blue-600">(beta)</span></li>
+            </ul>
+            <button onclick="showPayment('business')" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition">
+                Get Business — ₹2,999/month
+            </button>
+        </div>
+    </div>
+
+    <!-- Savings CTA Banner -->
+    <div class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white text-center mb-12">
+        <h2 class="text-2xl font-extrabold mb-2">💰 The Math Works in Your Favour</h2>
+        <p class="text-green-100 text-lg mb-4">
+            One correctly classified shipment to UAE = save ₹25,000-5 lakhs in duties.<br>
+            One wrong HS code = customs delays + penalties + 30% extra duty.<br>
+            <strong>ExportPilot Pro costs ₹999/month. It pays for itself in the first use.</strong>
+        </p>
+        <p class="text-green-200 text-sm">UAE CEPA alone covers 90%+ of goods at 0% duty. Most Indian exporters don't know this.</p>
+    </div>
+
+    <!-- Enterprise / Custom -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-8 mb-12">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div>
+                <h3 class="text-xl font-bold mb-1">Custom / Enterprise</h3>
+                <p class="text-slate-500">For customs brokers, CAs, export houses, and multi-branch organisations.</p>
+            </div>
+            <div class="flex flex-col items-end gap-2">
+                <p class="text-2xl font-extrabold">₹9,999/month</p>
+                <a href="https://wa.me/919876543210?text=Hi%20Ollie%2C%20I%27m%20interested%20in%20ExportPilot%20Enterprise" class="bg-slate-900 hover:bg-slate-800 text-white font-semibold px-6 py-3 rounded-xl transition text-sm">
+                    Talk to Sales →
+                </a>
+            </div>
+        </div>
+        <div class="grid md:grid-cols-3 gap-4 mt-6 text-sm">
+            <div class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> Unlimited everything</div>
+            <div class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> White-label (your branding)</div>
+            <div class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> API access</div>
+            <div class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> Client management portal</div>
+            <div class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> Bulk team pricing</div>
+            <div class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> Onboarding + training call</div>
+        </div>
+    </div>
+
+    <!-- Lead Capture (for people not ready to pay) -->
+    <div id="leadSection" class="bg-white rounded-2xl border border-slate-200 p-8 mb-12">
+        <h3 class="text-xl font-bold mb-2">Not ready to pay yet?</h3>
+        <p class="text-slate-500 mb-6">Get free HS code lookups + occasional tips on export duty savings. No spam.</p>
+        <form id="leadForm" class="flex flex-col sm:flex-row gap-3 max-w-lg">
+            <input type="text" id="leadName" placeholder="Your name" required class="flex-1 border border-slate-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input type="email" id="leadEmail" placeholder="Email address" required class="flex-1 border border-slate-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input type="text" id="leadProduct" placeholder="What do you export?" class="flex-1 border border-slate-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition whitespace-nowrap">
+                Get Free Access
+            </button>
+        </form>
+        <p id="leadSuccess" class="hidden text-green-600 font-semibold mt-3 text-sm">✓ You're in! Check your email for free login details. Welcome to ExportPilot.</p>
+    </div>
+
+    <!-- FAQ -->
+    <div class="mb-12">
+        <h3 class="text-xl font-bold mb-6">Common Questions</h3>
+        <div class="space-y-4">
+            <details class="bg-white rounded-xl border border-slate-200 p-5">
+                <summary class="font-semibold cursor-pointer">Is the free tier really free? What's the catch?</summary>
+                <p class="text-slate-500 mt-2 text-sm">Yes, 5 HS lookups and 3 documents per month — no credit card needed. We want every Indian exporter to at least know their correct HS code. The paid plans are for people who export regularly and want unlimited access.</p>
+            </details>
+            <details class="bg-white rounded-xl border border-slate-200 p-5">
+                <summary class="font-semibold cursor-pointer">How does payment work?</summary>
+                <p class="text-slate-500 mt-2 text-sm">We accept UPI (GPay, PhonePe, Paytm), bank transfer, and card payments. After subscribing, you'll receive a payment link via email/WhatsApp within 24 hours. Your account is activated immediately after payment confirmation.</p>
+            </details>
+            <details class="bg-white rounded-xl border border-slate-200 p-5">
+                <summary class="font-semibold cursor-pointer">Is my trade data kept private?</summary>
+                <p class="text-slate-500 mt-2 text-sm">100% private. Your HS codes, export destinations, and product descriptions are never shared with anyone. We don't sell data. Privacy policy coming soon.</p>
+            </details>
+            <details class="bg-white rounded-xl border border-slate-200 p-5">
+                <summary class="font-semibold cursor-pointer">How accurate is the HS code classification?</summary>
+                <p class="text-slate-500 mt-2 text-sm">Our database covers 40+ major Indian export categories with 85-95% accuracy for common products. For specialised goods, we show the most likely codes with a confidence score. Always verify with a customs broker for critical shipments.</p>
+            </details>
+            <details class="bg-white rounded-xl border border-slate-200 p-5">
+                <summary class="font-semibold cursor-pointer">I'm a customs broker / CA. Can I white-label this?</summary>
+                <p class="text-slate-500 mt-2 text-sm">Yes! Business plan includes white-label for your clients. Contact us for custom pricing for broker firms. We also offer API access for integration with your existing systems.</p>
+            </details>
+            <details class="bg-white rounded-xl border border-slate-200 p-5">
+                <summary class="font-semibold cursor-pointer">Do you guarantee duty savings?</summary>
+                <p class="text-slate-500 mt-2 text-sm">We show you the rates and FTAs — the savings depend on correctly applying them. Our data is sourced from published government tariffs and trade agreements. We recommend verifying with a licensed customs broker for high-value shipments.</p>
+            </details>
+        </div>
+    </div>
+
+</main>
+
+<!-- Payment Modal -->
+<div id="paymentModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-8 relative">
+        <button onclick="closePayment()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl">✕</button>
+        <div id="paymentContent"></div>
+    </div>
+</div>
+
+<script>
+const plans = {
+    pro: { name: 'ExportPilot Pro', price: 999, period: 'month', features: '100 HS lookups + Unlimited FTA + Unlimited documents' },
+    business: { name: 'ExportPilot Business', price: 2999, period: 'month', features: 'Unlimited everything + Multi-user + White-label beta' },
+};
+
+function showPayment(planKey) {
+    const plan = plans[planKey];
+    document.getElementById('paymentContent').innerHTML = `
+        <h3 class="text-xl font-bold mb-1">Subscribe to ${plan.name}</h3>
+        <p class="text-slate-500 text-sm mb-6">${plan.features}</p>
+        <div class="bg-slate-50 rounded-xl p-5 mb-6">
+            <p class="text-sm text-slate-500 mb-2">Pay using UPI</p>
+            <div class="flex items-center gap-3 bg-white border-2 border-blue-200 rounded-xl p-4">
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-2xl">💳</div>
+                <div>
+                    <p class="font-bold text-lg">₹${plan.price}/${plan.period}</p>
+                    <p class="text-slate-500 text-sm">UPI ID: <strong>ollie@upi</strong></p>
+                </div>
+            </div>
+            <p class="text-xs text-slate-400 mt-3">After payment, send screenshot + email to <strong>exportpilot.in@gmail.com</strong> or WhatsApp <strong>+91 98765 43210</strong> for instant activation.</p>
+        </div>
+        <div class="bg-blue-50 rounded-xl p-4 text-sm">
+            <p class="font-semibold text-blue-900 mb-1">Need invoice / receipt?</p>
+            <p class="text-blue-700">We issue GST invoices. Mention your GSTIN when you message us after payment.</p>
+        </div>
+        <p class="text-center text-xs text-slate-400 mt-4">Or want to try free first? <a href="/hs-lookup" class="text-blue-600 hover:underline">Use HS Classifier free →</a></p>
+    `;
+    document.getElementById('paymentModal').classList.remove('hidden');
+}
+
+function closePayment() {
+    document.getElementById('paymentModal').classList.add('hidden');
+}
+
+document.getElementById('leadForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = {
+        name: document.getElementById('leadName').value,
+        email: document.getElementById('leadEmail').value,
+        product: document.getElementById('leadProduct').value,
+        source: 'pricing_page'
+    };
+    try {
+        await fetch('/api/lead', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+    } catch(err) {}
+    document.getElementById('leadForm').classList.add('hidden');
+    document.getElementById('leadSuccess').classList.remove('hidden');
+});
+
+// Close modal on outside click
+document.getElementById('paymentModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('paymentModal')) closePayment();
+});
+</script>
+
+</body>
+</html>
+
+<!-- Analytics -->
+<script>
+fetch('/api/analytics', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+        event: 'pageview',
+        page: '/pricing',
+        referrer: document.referrer,
+        ua: navigator.userAgent.substring(0, 100)
+    })
+}).catch(() => {});
+</script>

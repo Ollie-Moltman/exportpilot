@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Generator — ExportPilot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>* { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+
+<nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+                <span class="text-white font-bold text-lg">EP</span>
+            </div>
+            <span class="font-bold text-xl text-slate-900">ExportPilot</span>
+        </a>
+        <div class="flex items-center gap-6">
+            <a href="/hs-lookup" class="text-sm font-medium text-slate-600 hover:text-blue-600">HS Classifier</a>
+            <a href="/fta-optimizer" class="text-sm font-medium text-slate-600 hover:text-blue-600">FTA Optimizer</a>
+            <a href="/documents" class="text-sm font-semibold text-blue-600">Documents</a>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-5xl mx-auto px-4 py-12">
+
+    <div class="text-center mb-10">
+        <div class="inline-flex items-center gap-2 bg-purple-100 text-purple-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
+            <span>📄</span> Coming in v1.1 — Early Preview
+        </div>
+        <h1 class="text-3xl md:text-4xl font-extrabold mb-3">Trade Document Generator</h1>
+        <p class="text-slate-500 max-w-xl mx-auto">
+            Upload your product details once. Generate Commercial Invoice, Packing List, and Certificate of Origin — all consistent, all correct.
+        </p>
+    </div>
+
+    <!-- Preview / Coming Soon Notice -->
+    <div class="bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-200 rounded-2xl p-8 mb-10 text-center">
+        <div class="text-5xl mb-4">📋</div>
+        <h3 class="text-xl font-bold text-slate-800 mb-2">Document Generation — Early Access Waitlist</h3>
+        <p class="text-slate-600 text-sm max-w-lg mx-auto mb-6">
+            We are building automatic generation of: Commercial Invoices, Packing Lists, Bills of Entry, Shipping Bills drafts, and Certificates of Origin — all validated against each other and against FTA rules.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <button onclick="alert('Thank you! We will notify you when document generation is ready.')" class="bg-purple-600 hover:bg-purple-500 text-white font-semibold px-8 py-3 rounded-xl transition">
+                🔔 Join Waitlist — Get Early Access
+            </button>
+            <a href="/hs-lookup" class="border border-purple-300 hover:border-purple-400 text-purple-700 font-semibold px-8 py-3 rounded-xl transition">
+                ← Try HS Classifier Now
+            </a>
+        </div>
+    </div>
+
+    <!-- Document Types -->
+    <div class="grid md:grid-cols-2 gap-6 mb-12">
+        <div class="bg-white rounded-2xl border border-slate-200 p-6">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-2xl">📄</span>
+                <h3 class="font-bold text-lg">Commercial Invoice</h3>
+                <span class="text-xs bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded-full ml-auto">Ready</span>
+            </div>
+            <p class="text-slate-500 text-sm mb-3">The primary document for customs — shows value, quantity, and description of goods.</p>
+            <div class="bg-slate-50 rounded-lg p-3 text-xs text-slate-600">
+                <p class="font-semibold mb-1">Must include:</p>
+                <p>Exporter & importer details • Invoice number & date • Description of goods • HS code • FOB/CIF value • Country of origin • Payment terms</p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 p-6">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-2xl">📦</span>
+                <h3 class="font-bold text-lg">Packing List</h3>
+                <span class="text-xs bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded-full ml-auto">Ready</span>
+            </div>
+            <p class="text-slate-500 text-sm mb-3">Details every package — number of cartons, gross/net weight, dimensions.</p>
+            <div class="bg-slate-50 rounded-lg p-3 text-xs text-slate-600">
+                <p class="font-semibold mb-1">Must include:</p>
+                <p>Invoice reference • Number of packages • Description per package • Gross weight • Net weight • Dimensions • Carton marks</p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 p-6">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-2xl">🏭</span>
+                <h3 class="font-bold text-lg">Certificate of Origin (CoO)</h3>
+                <span class="text-xs bg-amber-100 text-amber-700 font-semibold px-2 py-0.5 rounded-full ml-auto">In Progress</span>
+            </div>
+            <p class="text-slate-500 text-sm mb-3">Official proof that goods are from India — required to claim FTA preferential rates.</p>
+            <div class="bg-slate-50 rounded-lg p-3 text-xs text-slate-600">
+                <p class="font-semibold mb-1">Required for FTA claims:</p>
+                <p>Product origin • Manufacturing process • Local content % • HS code • exporter declaration • issuing authority stamp</p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 p-6">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-2xl">🚢</span>
+                <h3 class="font-bold text-lg">Bill of Entry / Shipping Bill</h3>
+                <span class="text-xs bg-amber-100 text-amber-700 font-semibold px-2 py-0.5 rounded-full ml-auto">In Progress</span>
+            </div>
+            <p class="text-slate-500 text-sm mb-3">Customs declaration filed at Indian ports — Bill of Entry for imports, Shipping Bill for exports.</p>
+            <div class="bg-slate-50 rounded-lg p-3 text-xs text-slate-600">
+                <p class="font-semibold mb-1">Filed on ICEGATE:</p>
+                <p>IEC • AD code • HS code • Invoice value • Duty assessment • Port of import/export • CHA details</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Document Checklist -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8">
+        <h3 class="font-bold text-lg mb-6">✅ Exporter Document Checklist</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded border-2 border-slate-300 flex-shrink-0 mt-0.5"></div>
+                <div>
+                    <p class="font-medium text-sm text-slate-800">IEC (Import Export Code)</p>
+                    <p class="text-xs text-slate-500">From DGFT — mandatory for all exporters</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded border-2 border-slate-300 flex-shrink-0 mt-0.5"></div>
+                <div>
+                    <p class="font-medium text-sm text-slate-800">GST Registration</p>
+                    <p class="text-xs text-slate-500">Required for claiming input tax credit</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded border-2 border-slate-300 flex-shrink-0 mt-0.5"></div>
+                <div>
+                    <p class="font-medium text-sm text-slate-800">IEC for specific products</p>
+                    <p class="text-xs text-slate-500">RCMC from Export Promotion Councils for certain goods</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded border-2 border-slate-300 flex-shrink-0 mt-0.5"></div>
+                <div>
+                    <p class="font-medium text-sm text-slate-800">Commercial Invoice + Packing List</p>
+                    <p class="text-xs text-slate-500">For every shipment</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded border-2 border-slate-300 flex-shrink-0 mt-0.5"></div>
+                <div>
+                    <p class="font-medium text-sm text-slate-800">Bill of Lading / Airway Bill</p>
+                    <p class="text-xs text-slate-500">From shipping line / airline</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded border-2 border-slate-300 flex-shrink-0 mt-0.5"></div>
+                <div>
+                    <p class="font-medium text-sm text-slate-800">Insurance Certificate</p>
+                    <p class="text-xs text-slate-500">Required for CIF shipments</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded border-2 border-slate-300 flex-shrink-0 mt-0.5"></div>
+                <div>
+                    <p class="font-medium text-sm text-slate-800">Certificate of Origin (if claiming FTA)</p>
+                    <p class="text-xs text-slate-500">From Chamber of Commerce or DGFT</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded border-2 border-slate-300 flex-shrink-0 mt-0.5"></div>
+                <div>
+                    <p class="font-medium text-sm text-slate-800">Pre-Dispatch Inspection Certificate</p>
+                    <p class="text-xs text-slate-500">For certain regulated products</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script>
+// Placeholder for future document generation functionality
+</script>
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExportPilot — AI Trade Co-Pilot for Indian Exporters</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .gradient-text { background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .typing { animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+<!-- Nav -->
+<nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+                <span class="text-white font-bold text-lg">EP</span>
+            </div>
+            <div>
+                <span class="font-bold text-xl text-slate-900">ExportPilot</span>
+                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full ml-2 font-medium">BETA</span>
+            </div>
+        </div>
+        <div class="flex items-center gap-6">
+            <a href="/hs-lookup" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition">HS Classifier</a>
+            <a href="/fta-optimizer" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition">FTA Optimizer</a>
+            <a href="/documents" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition">Documents</a>
+            <span class="text-xs text-slate-400">v1.0 MVP</span>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero-gradient text-white py-20 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-6">
+            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            <span class="text-xs text-white/80">Built for Indian SME Exporters • Save ₹ lakhs per shipment</span>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+            Your AI Export Manager<br>
+            <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Runs 24/7</span>
+        </h1>
+        <p class="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
+            Classify products, find the best FTA route, generate customs documents — all in one place. 
+            Built for Indian exporters who want to stop overpaying duties and wasting time on paperwork.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/hs-lookup" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl transition shadow-lg shadow-blue-600/30">
+                🚀 Classify Your First Product — Free
+            </a>
+            <a href="#how-it-works" class="border border-white/30 hover:border-white/60 text-white font-medium px-8 py-4 rounded-xl transition">
+                See How It Works
+            </a>
+        </div>
+        <p class="text-xs text-slate-500 mt-4">No login required • No credit card • Instant results</p>
+    </div>
+</section>
+
+<!-- Stats Bar -->
+<section class="bg-white border-b">
+    <div class="max-w-6xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div>
+            <div class="text-2xl font-bold text-blue-600">13+</div>
+            <div class="text-xs text-slate-500 mt-1">Active India FTAs</div>
+        </div>
+        <div>
+            <div class="text-2xl font-bold text-purple-600">₹4-8B</div>
+            <div class="text-xs text-slate-500 mt-1">Yearly duty overpaid by Indian exporters</div>
+        </div>
+        <div>
+            <div class="text-2xl font-bold text-green-600">70-80%</div>
+            <div class="text-xs text-slate-500 mt-1">Indian exporters missing FTA benefits</div>
+        </div>
+        <div>
+            <div class="text-2xl font-bold text-orange-600">₹0</div>
+            <div class="text-xs text-slate-500 mt-1">Cost to get started</div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="py-20 px-4" id="features">
+    <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-14">
+            <h2 class="text-3xl font-bold mb-3">Everything a First-Time Exporter Needs</h2>
+            <p class="text-slate-500">Replace your customs broker, CA, and trade consultant with one AI</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="bg-white rounded-2xl p-8 border border-slate-200 card-hover">
+                <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-5">
+                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">HS Code Classifier</h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-4">
+                    Describe your product in plain English. Get the correct 6-8 digit HS code, Indian duty rates, and explanations — in under 30 seconds.
+                </p>
+                <div class="text-xs text-blue-600 font-medium bg-blue-50 px-3 py-2 rounded-lg">
+                    ⚡ Replaces ₹500-2,000 customs broker query
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="bg-white rounded-2xl p-8 border border-slate-200 card-hover">
+                <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mb-5">
+                    <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">FTA Duty Optimizer</h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-4">
+                    Find the best Free Trade Agreement for your product and destination. Calculate exactly how much duty you can save — and how to claim it.
+                </p>
+                <div class="text-xs text-green-600 font-medium bg-green-50 px-3 py-2 rounded-lg">
+                    💰 Average savings: ₹25,000-5 lakhs per shipment
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="bg-white rounded-2xl p-8 border border-slate-200 card-hover">
+                <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-5">
+                    <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Document Generator</h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-4">
+                    Auto-generate Commercial Invoices, Packing Lists, and Certificates of Origin. Validated for consistency before you submit.
+                </p>
+                <div class="text-xs text-purple-600 font-medium bg-purple-50 px-3 py-2 rounded-lg">
+                    📄 Replaces ₹500-1,000 per document to brokers
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="bg-white py-20 px-4" id="how-it-works">
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-14">
+            <h2 class="text-3xl font-bold mb-3">How ExportPilot Works</h2>
+            <p class="text-slate-500">Three steps. Zero paperwork. Real savings.</p>
+        </div>
+        <div class="space-y-6">
+            <div class="flex items-start gap-6 p-6 bg-slate-50 rounded-2xl fade-in">
+                <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold text-lg">1</div>
+                <div>
+                    <h4 class="font-bold text-lg mb-1">Describe your product</h4>
+                    <p class="text-slate-500 text-sm">Type what you make or want to export. e.g., "Handmade woolen carpets, 6x9 feet, hand-knotted"</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-6 p-6 bg-slate-50 rounded-2xl fade-in">
+                <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold text-lg">2</div>
+                <div>
+                    <h4 class="font-bold text-lg mb-1">Get your HS code + duty breakdown instantly</h4>
+                    <p class="text-slate-500 text-sm">AI tells you the correct tariff code, Indian customs duty (BCD + IGST), and which FTAs can reduce it.</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-6 p-6 bg-slate-50 rounded-2xl fade-in">
+                <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold text-lg">3</div>
+                <div>
+                    <h4 class="font-bold text-lg mb-1">Export smarter — or download your documents</h4>
+                    <p class="text-slate-500 text-sm">Choose the best FTA route, see your exact savings, and generate Certificate of Origin + other documents in one click.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- India FTAs covered -->
+<section class="py-16 px-4 bg-slate-900 text-white">
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-10">
+            <h2 class="text-2xl font-bold mb-2">India's Active FTAs — All Covered</h2>
+            <p class="text-slate-400 text-sm">We track all preferential rates so you don't have to</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div class="bg-white/10 border border-white/20 rounded-xl p-3 text-center">
+                <div class="font-bold text-sm">🇦🇪 UAE</div>
+                <div class="text-xs text-slate-400">CEPA • 0% on 90%+ goods</div>
+            </div>
+            <div class="bg-white/10 border border-white/20 rounded-xl p-3 text-center">
+                <div class="font-bold text-sm">🇸🇬 ASEAN</div>
+                <div class="text-xs text-slate-400">0-5% on 1000s of products</div>
+            </div>
+            <div class="bg-white/10 border border-white/20 rounded-xl p-3 text-center">
+                <div class="font-bold text-sm">🇯🇵 Japan</div>
+                <div class="text-xs text-slate-400">CEPA • Major savings</div>
+            </div>
+            <div class="bg-white/10 border border-white/20 rounded-xl p-3 text-center">
+                <div class="font-bold text-sm">🇰🇷 Korea</div>
+                <div class="text-xs text-slate-400">CEPIA • 0-5% many goods</div>
+            </div>
+            <div class="bg-white/10 border border-white/20 rounded-xl p-3 text-center">
+                <div class="font-bold text-sm">🇦🇺 Australia</div>
+                <div class="text-xs text-slate-400">ECTA • Fast expanding</div>
+            </div>
+            <div class="bg-white/10 border border-white/20 rounded-xl p-3 text-center">
+                <div class="font-bold text-sm">🇬🇧 UK</div>
+                <div class="text-xs text-slate-400">FTA active 2022</div>
+            </div>
+            <div class="bg-white/10 border border-white/20 rounded-xl p-3 text-center">
+                <div class="font-bold text-sm">🇳🇿 New Zealand</div>
+                <div class="text-xs text-slate-400">Indonesia-India soon</div>
+            </div>
+            <div class="bg-white/10 border border-white/20 rounded-xl p-3 text-center">
+                <div class="font-bold text-sm">🇪🇺 EU</div>
+                <div class="text-xs text-slate-400">FTA concluded Jan 2026</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 px-4 text-center">
+    <div class="max-w-2xl mx-auto">
+        <h2 class="text-3xl font-bold mb-4">Ready to Stop Overpaying Duties?</h2>
+        <p class="text-slate-500 mb-8">
+            The average Indian exporter saves ₹50,000-5 lakhs per year by using the correct HS code and FTA route. 
+            Most don't know they're doing it wrong.
+        </p>
+        <a href="/hs-lookup" class="inline-block bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold px-10 py-4 rounded-xl transition shadow-xl shadow-blue-600/20 text-lg">
+            Start Classifying — It's Free →
+        </a>
+        <p class="text-xs text-slate-400 mt-4">No login • No payment • Instant AI classification</p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-slate-900 text-slate-400 py-10 px-4">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="text-center md:text-left">
+            <div class="font-bold text-white text-lg">ExportPilot</div>
+            <div class="text-xs mt-1">AI Trade Co-Pilot for Indian SMEs</div>
+            <div class="text-xs mt-1">Built: 2026-07-11 | v1.0 MVP</div>
+        </div>
+        <div class="text-xs text-center md:text-right">
+            <div>For informational purposes only. Always verify with a licensed customs broker.</div>
+            <div class="mt-1">© 2026 ExportPilot — Built in India 🇮🇳</div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

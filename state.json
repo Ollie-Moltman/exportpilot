@@ -1,0 +1,20 @@
+{
+  "name": "ExportPilot",
+  "status": "MVP_LIVE",
+  "build_date": "2026-07-11",
+  "port": 5050,
+  "tunnel_url": "https://cakes-plots-feeding-profit.trycloudflare.com",
+  "app_pid": 216141,
+  "tunnel_pid": null,
+  "version": "1.0.0-MVP",
+  "features": ["HS Code Classification", "FTA Duty Optimization", "Document Reference"],
+  "notes": "App running on Flask. Cloudflared tunnel active. Needs OPENROUTER_API_KEY for AI classification upgrade.",
+  "next_steps": [
+    "Add actual India tariff database (CBIC data)",
+    "Add real FTA rate data for common HS codes",
+    "Build document generation module",
+    "Get OpenRouter API key for AI classification",
+    "Add user auth and history tracking",
+    "Build white-label for customs brokers"
+  ]
+}

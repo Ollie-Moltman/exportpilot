@@ -528,7 +528,7 @@ def api_history():
 
 @app.route('/api/health')
 def api_health():
-    return jsonify({'status': 'running', 'version': '1.3.0', 'build': '2026-07-11', 'features': ['HS Classification v40+', 'FTA Rates DB', 'Document Generator v1.0']})
+    return jsonify({'status': 'running', 'version': '1.4.0', 'build': '2026-07-11', 'features': ['HS Classification v40+', 'FTA Rates DB', 'Document Generator (Invoice + Packing List + COO)']})
 
 # ─── Start ──────────────────────────────────────────────────────────────────────
 def start():

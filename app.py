@@ -740,9 +740,21 @@ I, the undersigned, hereby declare that the above-mentioned goods are of Indian 
 </div>
 </body></html>"""
 
+@app.route('/blog')
+def blog_index():
+    return render_template('blog/index.html')
+
 @app.route('/blog/uae-cepta-savings-guide')
 def blog_uae_cepta():
     return render_template('blog/uae-cepta-savings-guide.html')
+
+@app.route('/blog/hs-code-guide-india')
+def blog_hs_code_guide():
+    return render_template('blog/hs-code-guide-india.html')
+
+@app.route('/blog/export-documents-checklist')
+def blog_export_docs():
+    return render_template('blog/export-documents-checklist.html')
 
 @app.route('/pricing')
 def pricing():
@@ -765,6 +777,22 @@ def api_lead():
 @app.route('/doc-generator')
 def doc_generator():
     return render_template('doc_generator.html')
+
+@app.route('/visual-workflows')
+def visual_workflows():
+    return render_template('visual-workflows.html')
+
+@app.route('/workflow-all')
+def workflow_all():
+    return render_template('workflow-all.html')
+
+@app.route('/workflow/setup')
+def workflow_setup():
+    return render_template('setup-workflow.html')
+
+@app.route('/workflow/ongoing')
+def workflow_ongoing():
+    return render_template('ongoing-workflow.html')
 
 @app.route('/api/generate-document', methods=['POST'])
 def api_generate_document():

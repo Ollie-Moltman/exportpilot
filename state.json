@@ -2,28 +2,25 @@
   "name": "ExportPilot",
   "status": "MVP_LIVE",
   "build_date": "2026-07-11",
-  "version": "1.3.0",
+  "version": "1.5.0",
   "port": 5050,
   "tunnel_url": "https://page-forests-subsection-bring.trycloudflare.com",
-  "tunnel_url_short": "ExportPilot now has 3 modules:",
-  "app_pid": 216530,
-  "features": [
-    "HS Code Classification (40+ Indian product categories)",
-    "FTA Duty Optimization (India-UAE CEPA, ASEAN, Korea, Japan, etc.)",
-    "Document Generator v1.0 (Commercial Invoice + Certificate of Origin)"
-  ],
   "modules": {
     "hs_lookup": "/hs-lookup",
     "fta_optimizer": "/fta-optimizer",
     "doc_generator": "/doc-generator"
   },
-  "notes": "v1.3 adds document generation. OpenRouter AI credit exhausted - using keyword-based classification. All 3 core modules working.",
+  "features": [
+    "HS Code Classification (40+ Indian product categories)",
+    "FTA Duty Optimization (10+ FTAs incl. UAE CEPA, ASEAN, Korea, Japan)",
+    "Document Generator: Commercial Invoice, Packing List, Certificate of Origin"
+  ],
+  "notes": "v1.4: All 3 document types live. OpenRouter AI credits exhausted - keyword classifier active. Need: paid API key or Gemini Flash migration.",
   "next_steps": [
-    "Add Packing List document type",
-    "Add print-optimized PDF output",
-    "Build India tariff database from CBIC data",
-    "Get OpenRouter API key for AI classification",
-    "User auth and search history per user",
-    "White-label for customs brokers"
+    "Add user auth (simple email/password)",
+    "Add search history per user",
+    "Real India tariff DB from CBIC data",
+    "White-label for customs brokers (CRITICAL for distribution)",
+    "Print-to-PDF server-side (wkhtmltopdf or weasyprint)"
   ]
 }

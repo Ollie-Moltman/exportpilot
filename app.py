@@ -740,6 +740,31 @@ I, the undersigned, hereby declare that the above-mentioned goods are of Indian 
 </div>
 </body></html>"""
 
+@app.route('/sitemap.xml')
+def sitemap():
+    base = request.host_url.rstrip('/')
+    xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    pages = [
+        ('/', 'weekly', '1.0'),
+        ('/hs-lookup', 'weekly', '0.9'),
+        ('/fta-optimizer', 'weekly', '0.9'),
+        ('/doc-generator', 'weekly', '0.9'),
+        ('/pricing', 'monthly', '0.8'),
+        ('/blog', 'weekly', '0.8'),
+        ('/blog/uae-cepta-savings-guide', 'monthly', '0.7'),
+        ('/blog/hs-code-guide-india', 'monthly', '0.7'),
+        ('/blog/export-documents-checklist', 'monthly', '0.7'),
+    ]
+    for path, freq, pri in pages:
+        xml += f'<url><loc>{base}{path}</loc><changefreq>{freq}</changefreq><priority>{pri}</priority></url>\n'
+    xml += '</urlset>'
+    return xml, 200, {'Content-Type': 'application/xml'}
+
+@app.route('/robots.txt')
+def robots():
+    base = request.host_url.rstrip('/')
+    return f'User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n', 200, {'Content-Type': 'text/plain'}
+
 @app.route('/blog')
 def blog_index():
     return render_template('blog/index.html')
